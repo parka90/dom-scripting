@@ -63,22 +63,17 @@ console.log(nuevoEnlace);
 
 // seleccionar elementos y asociarles un elemento.
 
-const btnEnviar = document.querySelector('.boton--primario');
-btnEnviar.addEventListener('click', function(e) {
-    console.log(e);
-    e.preventDefault();
-    // console.log('Enviando formulario');
+// const btnEnviar = document.querySelector('.boton--primario');
+// btnEnviar.addEventListener('click', function(e) {
+//     console.log(e);
+//     e.preventDefault();
+//     // console.log('Enviando formulario');
 
-    // Validar un formulario
-    console.log('enviando formulario');
-});
+//     // Validar un formulario
+//     console.log('enviando formulario');
+// });
 
-// el evento de submit
 
-const formulario = document.querySelector('.formulario');
-formulario.addEventListener('submit', function(e) {
-    e.preventDefault('submit')
-})
 
 
 // Eventos de los inputs y textArea
@@ -92,6 +87,7 @@ const datos = {
 const nombre = document.querySelector('#nombre');
 const email = document.querySelector('#email');
 const mensaje = document.querySelector('#mensaje');
+const formulario = document.querySelector('.formulario');
 
 // nombre.addEventListener('input', function(e) {
 //     console.log(e.target.value);
@@ -101,6 +97,34 @@ nombre.addEventListener('input', leerTexto);
 email.addEventListener('input', leerTexto);
 mensaje.addEventListener('input', leerTexto);
 
+// Evento del submit
+formulario.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // validar el formulario
+
+    const { nombre, email, mensaje } = datos;
+
+    if(nombre === ''|| email === '' || mensaje === '') {
+        mostrarAlerta('Todos los campos son obligatorios', 'error');
+        
+        return;
+    }
+
+    // crear otro alerta de correccion
+    mostrarAlerta('Campos enviados correctamente');
+    
+
+    
+
+    // console.log('Enviando Formulario');
+});
+
+
+
+
+
+
 function leerTexto(e) {
     // console.log(e.target.value);
 
@@ -108,6 +132,50 @@ function leerTexto(e) {
 
     // console.log(e.target)
 
-    console.log(datos);
+    // console.log(datos);
+
+}
+
+// muestra un error en pantalla
+
+// function mostrarError(mensaje) {
+//     const error = document.createElement('P');
+//     error.textContent = mensaje;
+//     error.classList.add('error');
+
+//     formulario.appendChild( error );
+//     //desaparezca despues de 5 segundos
+//     setTimeout(() => {
+//         error.remove();
+//     }, (5000));
+// }
+
+
+// function mostrarCorrecto(mensaje) {
+//     const correcto = document.createElement('P');
+//     correcto.textContent = mensaje;
+//     correcto.classList.add('correcto');
+
+//     formulario.appendChild( correcto );
+//     setTimeout(() => {
+//         correcto.remove();
+//     }, 5000);
+// }
+
+
+function mostrarAlerta(mensaje, error = null) {
+    const alerta = document.createElement ('P');
+    alerta.textContent = mensaje;
+    if(error) {
+        alerta.classList.add('error');
+    } else {
+        alerta.classList.add('correcto');
+    }
+
+    formulario.appendChild(alerta);
+
+    setTimeout(() => {
+        alerta.remove();
+    }, 5000);
 
 }
